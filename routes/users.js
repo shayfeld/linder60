@@ -332,7 +332,7 @@ router.get('/verified',(req,res)=>{
 
 // Login Handle
 router.post('/login',async(req, res, next)=>{
-    const captcha = req.body['g-recaptcha-response'];
+
     const {email, password} = req.body;
     
     let errors = [];
@@ -342,11 +342,7 @@ router.post('/login',async(req, res, next)=>{
     if(!email || !password){
         errors.push({msg:'Please fill in all fields'});
     }
-    // captcha not used
-    if(!captcha){
-        errors.push({msg:'Please select I am not a robot'});
-       
-    } 
+
     if(errors.length > 0){
         res.render('login',{
                     errors,
@@ -354,30 +350,11 @@ router.post('/login',async(req, res, next)=>{
                     password,
                 });
     }else {
-
-        // Secret Key
-        const secretKey = '6LcGqzEeAAAAAPbp7LRjwknzZidsfQ-p9zvbjPhX';
-
-        // Verify URL
-        const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
-
-        // Make Request to VerifyURL
-        request(verifyURL,(err, response, body) =>{
-            body = JSON.parse(body);
-            // If not success
-            if(body.success !== undefined && !body.success){
-                console.log("did'nt success");
-                res.redirect('/users/login');
-            }else{ // success
-                passport.authenticate('local', {
-                    successRedirect: '/dashboard',
-                    failureRedirect: '/users/login',
-                    failureFlash: true
-                })(req, res, next); 
-            }
-        })
-
-         
+        passport.authenticate('local', {
+            successRedirect: '/dashboard',
+            failureRedirect: '/users/login',
+            failureFlash: true
+        })(req, res, next); 
     } 
 });
 
