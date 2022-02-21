@@ -32,7 +32,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Add new treatment</h1>
+                                <h1 class="h4 text-gray-900 mb-4">הוספה של תחביב חדש</h1>
                                 <% if(locals.errors){ %> 
                                     <% errors.forEach(function(error) { %>
                                       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -43,52 +43,15 @@
                             </div>
                             <form class="user" action="/treatments/addTreatment" method="POST">
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input
-                                               type="name"
-                                               id="treatmentNumber"
-                                               name="treatmentNumber"
-                                               class="form-control form-control-user"
-                                               placeholder="Treatment Number"
-                                               onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
-                                               value="<%= typeof treatmentNumber != 'undefined' ? treatmentNumber : '' %>"
-                                           />
-                                   </div>
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                         <input
-                                                type="name"
-                                                id="carNumber"
-                                                name="carNumber"
-                                                class="form-control form-control-user"
-                                                placeholder="Car Number"
-                                                onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
-                                                value="<%= typeof carNumber != 'undefined' ? carNumber : '' %>"
-                                            />
-                                    </div>
-                                </div>
-                                <div class="form-group">
                                     <input
-                                        type="name"
-                                        id="treatmentInformation"
-                                        name="treatmentInformation"
-                                        class="form-control form-control-user"
-                                        placeholder="Treatment Information"
-                                        onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" maxlength="30"
-                                        value="<%= typeof treatmentInformation != 'undefined' ? treatmentInformation : '' %>"
-                                    />
+                                               type="name"
+                                               id="hobbie"
+                                               name="hobbie"
+                                               class="form-control form-control-user"
+                                               placeholder="הוספה של תחביב חדש"
+                                               value="<%= typeof hobbie != 'undefined' ? hobbie : '' %>"
+                                           />
                                 </div>
-                                <div class="form-group">
-                                        <input
-                                            type="email"
-                                            id="workerEmail"
-                                            name="workerEmail"
-                                            class="form-control form-control-user"
-                                            placeholder="Email Address"
-                                            onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 64) || (event.charCode == 46)"
-                                            value="<%= typeof workerEmail != 'undefined' ? workerEmail : '' %>"
-                                        />
-                                </div>
-
                                 <div class="form-group row">
                                         <div class="col-sm-6">
                                             <button type="submit" class="btn btn-primary btn-user btn-block">

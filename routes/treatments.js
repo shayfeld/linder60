@@ -39,43 +39,32 @@ router.get('/editTreatment/:id', ensureAuthenticated, (req, res)=>{
 
 // Add Treatment Handle
 router.post('/addTreatment', ensureAuthenticated, (req, res)=>{
-    const {treatmentNumber, carNumber, treatmentInformation, workerEmail} = req.body;
+    const {hobbies} = req.body;
     let errors = [];
 
     //Check required fields
-    if(!treatmentNumber || !carNumber || !treatmentInformation || !workerEmail){
+    if(!hobbie){
         errors.push({msg:'Please fill in all fields'});
     }
     
     if(errors.length > 0){
         res.render('addTreatment',{
                     errors,
-                    treatmentNumber,
-                    carNumber,
-                    treatmentInformation,
-                    workerEmail,
-
+                    hobbie,
                 });
     }else{
-        Treatment.findOne({treatmentNumber: treatmentNumber})
-        .then((treatment)=>{
-            if(treatment){
-                errors.push({msg:'The treatment number exist'});
+        Treatment.findOne({hobbie: hobbie})
+        .then((hobbie)=>{
+            if(hobbie){
+                errors.push({msg:'The hobbie exist'});
                 res.render('addTreatment',{
                     errors,
-                    treatmentNumber,
-                    carNumber,
-                    treatmentInformation,
-                    workerEmail,
-
+                    hobbie,
                 });
             }
             else{
                 const treatment = new Treatment({
-                    treatmentNumber:treatmentNumber,
-                    treatmentInformation:treatmentInformation,
-                    workerEmail:workerEmail,
-                    carNumber: carNumber
+                    hobbie:hobbie,
                 });
             
                 treatment.save()

@@ -1,1 +1,1 @@
-module.exports = {MongoURI:'mongodb+srv://garageService:Aa123456!@garageservice.ighjk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'}
+module.exports = {MongoURI:'mongodb+srv://garageService:Aa123456!@garageservice.ighjk.mongodb.net/linder60?retryWrites=true&w=majority'}
