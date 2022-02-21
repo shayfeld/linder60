@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 
 <head>
 
@@ -13,10 +13,10 @@
     <!-- Custom fonts for this template-->
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
+
     <!-- Custom styles for this template-->
     <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
 
-    
 </head>
 
 <body class="bg-gradient-primary">
@@ -32,11 +32,11 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">ברוכים הבאים והבאות ללינדר</h1>
                                         <% if(locals.errors){ %> 
                                             <% errors.forEach(function(error) { %>
                                               <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -48,24 +48,21 @@
                                     <form class="user" id="loginForm" action="/users/login" method="post">
                                         <div class="form-group">
                                                 <input
-                                                    type="email"
-                                                    id="email"
-                                                    name="email"
+                                                    type="name"
+                                                    id="userId"
+                                                    name="userId"
                                                     class="form-control form-control-user"
-                                                    placeholder="Enter Email Address..."
-                                                    onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 64) || (event.charCode == 46)"
-                                                    value="<%= typeof email != 'undefined' ? email : '' %>"
+                                                    placeholder="הכנס/י תעודת זהות"
+                                                    value="<%= typeof userId != 'undefined' ? userId : '' %>"
                                                 />
                                         </div>
                                         <div class="form-group">
+
                                                 <input
-                                                    type="password"
+                                                    type="hidden"
                                                     id="password"
                                                     name="password"
-                                                    class="form-control form-control-user"
-                                                    placeholder="Password"
-                                                    onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 33 || event.charCode == 64 || (event.charCode >= 35 && event.charCode <= 38) || event.charCode == 94 || event.charCode == 42 || event.charCode == 40 || event.charCode == 41 )" maxlength="16"
-                                                    value="<%= typeof password != 'undefined' ? password : '' %>"
+                                                    value="1234567"
                                                 />
                                         </div>
                                         <div class="form-group">
@@ -76,18 +73,16 @@
                                             </div>
                                         </div>
                                         
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">התחבר למערכת</button>
 
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="/users/forgotpass">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="/users/register">Create an Account!</a>
+                                        <a class="small" href="/users/register">יצירת משתמש חדש</a>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                         </div>
                     </div>
                 </div>

@@ -67,108 +67,62 @@ router.get('/sentEmail',(req, res)=>{
 });
 
 // Register Handle
-router.post('/register',(req, res)=>{
-    const {firstName, lastName, email, password, password2} = req.body;
-    const captcha = req.body['g-recaptcha-response'];
+router.post('/register',async(req, res, next)=>{
+    const {userId, fullName, phone} = req.body;
+    const password = userId;
 
     let errors = [];
 
     
     //Check required fields
-    if(!firstName || !lastName || !email || !password || !password2){
-        errors.push({msg:'Please fill in all fields'});
-    }
-    // captcha not used
-    if(!captcha){
-        errors.push({msg:'Please select I am not a robot'});
-    }
-    //Check passwords match
-    if(password !== password2){
-        errors.push({msg:'Passwords do nt match'});
-    }
-
-    //Check passwords length
-    if(password.length < 6){
-        errors.push({msg:'Passwords Should be at least 6 characters'});
+    if(!userId || !fullName || !phone){
+        errors.push({msg:'נא מלא את כל השדות'});
     }
 
     if(errors.length > 0){
         res.render('register',{
             errors,
-            firstName,
-            lastName,
-            email,
-            password,
-            password2
+            userId,
+            fullName,
+            phone
         });
     }else{
         
-        // Secret Key
-        const secretKey = '6LcGqzEeAAAAAPbp7LRjwknzZidsfQ-p9zvbjPhX';
+        // Validation passed
+        User.findOne({userId: userId})
+        .then(user =>{
+            if(user){
+                errors.push({msg: 'המשתמש כבר קיים במערכת'});
+                    res.render('login',{
+                        errors
+                    });
 
-        // Verify URL
-        const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${captcha}&remoteip=${req.connection.remoteAddress}`;
-
-        // Make Request to VerifyURL
-        request(verifyURL,(err, response, body) =>{
-            body = JSON.parse(body);
-            // If not success
-            if(body.success !== undefined && !body.success){
-                console.log("did'nt success");
-                res.redirect('/users/login');
-            }else{// success
-                // Validation passed
-                User.findOne({email: email})
-                .then(user =>{
-                    if(user){
-                        //User exists
-                        if(!user.verified){ // did'nt verify
-                            errors.push({msg: 'This email did not verification'});
-                            res.render('register',{
-                                errors,
-                                firstName,
-                                lastName,
-                                email,
-                                password,
-                                password2
-                            });
-                        }else{ // verified
-                            errors.push({msg: 'Email is already registered'});
-                            res.render('register',{
-                                errors,
-                                firstName,
-                                lastName,
-                                email,
-                                password,
-                                password2
-                            });
-                        }
-        
-                    }else{
-                        const newUser = new User({
-                            firstName,
-                            lastName,
-                            email,
-                            password,
-                            verified: false
-                        });
-
-                        // Hash Password
-                        bcrypt.genSalt(10, (err, salt)=> 
-                            bcrypt.hash(newUser.password, salt, (err, hash)=>{
-                                if(err) throw err;
-                                // Set password to hashed
-                                newUser.password = hash;
-                                // Save user
-                                newUser.save()
-                                .then(user => {
-                                    // Account verification handler
-                                    sendVerificationEmail(user, res);
-                                })
-                                .catch(err => console.log(err));
-                        }));
-                    }
+            }else{
+                const newUser = new User({
+                    userId,
+                    password,
+                    fullName,
+                    phone, 
                 });
+
+                // Hash Password
+                bcrypt.genSalt(10, (err, salt)=> 
+                    bcrypt.hash(newUser.password, salt, (err, hash)=>{
+                        if(err) throw err;
+                        // Set password to hashed
+                        newUser.password = hash;
+                        // Save user
+                        newUser.save()
+                        .then(user => {
+                            // Account verification handler
+                            passport.authenticate('local', {
+                                successRedirect: '/dashboard',
+                                failureRedirect: '/users/login',
+                                failureFlash: true
+                            })(req, res, next);
+                        })
+                        .catch(err => console.log(err));
+                }));
             }
         });
 
@@ -332,37 +286,30 @@ router.get('/verified',(req,res)=>{
 
 // Login Handle
 router.post('/login',async(req, res, next)=>{
-
-    const {email, password} = req.body;
-    
+    const {userId} = req.body;
     let errors = [];
 
     
     //Check required fields
-    if(!email || !password){
-        errors.push({msg:'Please fill in all fields'});
+    if(!userId){
+        errors.push({msg:'נא להזין את תעודת הזהות'});
     }
 
     if(errors.length > 0){
         res.render('login',{
                     errors,
-                    email,
-                    password,
+                    userId
                 });
     }else {
+
         passport.authenticate('local', {
             successRedirect: '/dashboard',
             failureRedirect: '/users/login',
             failureFlash: true
-        })(req, res, next); 
-    } 
-});
+        })(req, res, next);
 
-// Logout Handle
-router.post('/logout',(req, res, next)=>{
-    req.logout();
-    req.flash('success_msg', 'You are logged out');
-    res.redirect('/users/login');
+         
+    } 
 });
 
 // Forget Password Handle

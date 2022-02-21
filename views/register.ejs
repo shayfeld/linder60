@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl">
 
 <head>
 
@@ -12,13 +12,9 @@
 
         <!-- Custom fonts for this template-->
         <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
     
         <!-- Custom styles for this template-->
         <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
 </head>
@@ -31,11 +27,11 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
+                    
+                    <div class="col-lg-6">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">יצירת משתמש חדש</h1>
                                 <% if(locals.errors){ %> 
                                     <% errors.forEach(function(error) { %>
                                       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -46,82 +42,58 @@
 
                             </div>
                             
-                            <form class="user" action="/users/register" method="POST">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                         <input
-                                                type="name"
-                                                id="firstName"
-                                                name="firstName"
-                                                class="form-control form-control-user"
-                                                placeholder="First Name"
-                                                onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" maxlength="10"
-                                                value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
-                                            />
-                                    </div>
-                                    <div class="col-sm-6">
-                                            <input
-                                                type="name"
-                                                id="lastName"
-                                                name="lastName"
-                                                class="form-control form-control-user"
-                                                placeholder="Last Name"
-                                                onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122)" maxlength="10"
-                                                value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
-                                            />
-                                    </div>
+                            <form class="user" action="/users/register" method="POST" >
+                                <div class="form-group" >
+                                    <input
+                                        type="name"
+                                        id="userId"
+                                        name="userId"
+                                        class="form-control form-control-user"
+                                        placeholder="הכנס תעודת זהות"
+                                        value="<%= typeof userId != 'undefined' ? userId : '' %>"
+                                    />
                                 </div>
+                                </br>
                                 <div class="form-group">
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            name="email"
-                                            class="form-control form-control-user"
-                                            placeholder="Email Address"
-                                            onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 64) || (event.charCode == 46)"
-                                            value="<%= typeof email != 'undefined' ? email : '' %>"
-                                        />
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input
-                                                type="password"
-                                                id="password"
-                                                name="password"
+                                    <input
+                                                type="name"
+                                                id="fullName"
+                                                name="fullName"
                                                 class="form-control form-control-user"
-                                                placeholder="Password"
-                                                onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 33 || event.charCode == 64 || (event.charCode >= 35 && event.charCode <= 38) || event.charCode == 94 || event.charCode == 42 || event.charCode == 40 || event.charCode == 41 )" maxlength="16"
-                                                value="<%= typeof password != 'undefined' ? password : '' %>"
-                                            />
-                                    </div>
-                                    <div class="col-sm-6">
-                                            <input
-                                            type="password"
-                                            id="password2"
-                                            name="password2"
-                                            class="form-control form-control-user"
-                                            placeholder="Confirm Password"
-                                            onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode == 33 || event.charCode == 64 || (event.charCode >= 35 && event.charCode <= 38) || event.charCode == 94 || event.charCode == 42 || event.charCode == 40 || event.charCode == 41 )" maxlength="16"
-                                            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-                                          />
-                                    </div>
+                                                placeholder="הכנס שם מלא"
+                                                value="<%= typeof fullName != 'undefined' ? fullName : '' %>"
+                                     />
+
                                 </div>
+                                </br>
                                 <div class="form-group">
-                                    <div class="g-recaptcha" data-sitekey="6LcGqzEeAAAAAG1ZRtwUxEkgPci_00-RJ0AL6i7W"></div>
+                                            <input
+                                                type="phone"
+                                                id="phone"
+                                                name="phone"
+                                                class="form-control form-control-user"
+                                                placeholder="הכנס מספר פלאפון"
+                                                value="<%= typeof phone != 'undefined' ? phone : '' %>"
+                                            />
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Register Account
+                                <input
+                                                    type="hidden"
+                                                    id="password"
+                                                    name="password"
+                                                    value="1234567"
+                                                />
+                                </br>
+                                <button type="submit" class="btn btn-primary btn-user btn-block ">
+                                    יצירת משתמש חדש
                                   </button>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="/users/forgotpass">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="/users/login">Already have an account? Login!</a>
+                                <a class="small" href="/users/login">יש כבר משתמש במערכת</a>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 d-none d-lg-block bg-register-image"></div>
                 </div>
             </div>
         </div>

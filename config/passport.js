@@ -6,22 +6,22 @@ const User = require('../models/User');
 
 module.exports = function(passport) {
   passport.use(
-    new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
+    new LocalStrategy({ usernameField: 'userId' }, (userId, password, done) => {
       // Match user
       User.findOne({
-        email: email
+        userId: userId
       }).then(user => {
         if (!user) {
-          return done(null, false, { message: 'That email is not registered' });
+          return done(null, false, errors.push({msg:'תעודת זהות לא קיימת במערכת'}));
         }
 
         // Match password
-        bcrypt.compare(password, user.password, (err, isMatch) => {
+        bcrypt.compare(userId, user.password, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: 'Password incorrect' });
+            return done(null, false, errors.push({msg:'הסיסמא לא תואמת את הנתונים במערכת'}));
           }
         });
       });
