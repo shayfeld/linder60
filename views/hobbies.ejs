@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Garage Service</title>
+    <title>Linder</title>
 
     <!-- Custom fonts for this template -->
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-car"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Garage Service</sup></div>
+                <div class="sidebar-brand-text mx-3">Linder</sup></div>
             </a>
 
             <!-- Divider -->
@@ -111,14 +111,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4 text-right">בחר את התחביבים אותם תרצה למצוא בסביבתך</p>
-
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary text-right">בחירת תחביבים</h6>
+                            <h1 class="m-0 font-weight-bold text-primary text-right">בחירת תחביבים</h1>
                             
                         <div class="card-body">
                                 <br></br>
@@ -137,13 +133,12 @@
                                                     
                                                     <div class="form-group">
                                                         <a href="/treatments/editTreatment/<%= treatment._id%>" class="btn btn-success update">
-                                                            <i class="fas fa-pencil-alt fa-4x"></i>
+                                                            הוסף תחביב זה
                                                         </a>
                                                     </div>
                                                     <div class="form-group">
-                                                        <a href="/treatments/deleteTreatment/<%= treatment._id%>" class="btn btn-danger delete">
-                                                            <i class="fas fa-trash-alt fa-4x"></i>
-                                                            
+                                                        <a href="/treatments/deleteTreatment/<%= treatment._id%>" class="btn btn-danger delete"> 
+                                                            מחק תחביב זה
                                                         </a>
                                                     </div>
                                                 </td>

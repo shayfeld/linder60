@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Garage Service</title>
+    <title>Linder</title>
 
     <!-- Custom fonts for this template -->
     <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,7 +38,7 @@
                 <div class="sidebar-brand-icon">
                     <i class="fas fa-car"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Garage Service</sup></div>
+                <div class="sidebar-brand-text mx-3">Linder</sup></div>
             </a>
 
             <!-- Divider -->
@@ -131,12 +131,8 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Treatment Number</th>
-                                            <th>Treatment Information</th>
-                                            <th>Date</th>
-                                            <th>Worker email</th>
-                                            <th>Car Number</th>
-                                            <th>Action</th>
+                                            <th>שם ותחביבים</th>
+                                            <th>מרחק</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -147,27 +143,6 @@
                                                 </td>
                                                 <td>
                                                     <%= treatment.treatmentInformation %>
-                                                </td>
-                                                <td>
-                                                    <%= treatment.date %>
-                                                </td>
-                                                <td>
-                                                    <%= treatment.workerEmail %>
-                                                </td>
-                                                <td>
-                                                    <%= treatment.carNumber %>
-                                                </td>
-                                                <td>
-                                                    <a href="/treatments/editTreatment/<%= treatment._id%>" class="btn btn-success update">
-                                                        <span class="text-gradient">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a href="/treatments/deleteTreatment/<%= treatment._id%>" class="btn btn-danger delete">
-                                                        <span class="text-gradient">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </span>
-                                                    </a>
                                                 </td>
                                             </tr>
                                         <%})%>
