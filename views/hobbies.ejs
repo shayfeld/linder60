@@ -113,8 +113,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4 text-right">בחר את התחביבים אותם תרצה למצוא בסביבתך <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <p class="mb-4 text-right">בחר את התחביבים אותם תרצה למצוא בסביבתך</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -135,16 +134,18 @@
                                         <%treatmentList.forEach((treatment, index) => {%>
                                             <tr>
                                                 <td>
-                                                    <a href="/treatments/editTreatment/<%= treatment._id%>" class="btn btn-success update">
-                                                        <span class="text-gradient">
-                                                            <i class="fas fa-pencil-alt"></i>
-                                                        </span>
-                                                    </a>
-                                                    <a href="/treatments/deleteTreatment/<%= treatment._id%>" class="btn btn-danger delete">
-                                                        <span class="text-gradient">
-                                                            <i class="fas fa-trash-alt"></i>
-                                                        </span>
-                                                    </a>
+                                                    
+                                                    <div class="form-group">
+                                                        <a href="/treatments/editTreatment/<%= treatment._id%>" class="btn btn-success update">
+                                                            <i class="fas fa-pencil-alt fa-4x"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <a href="/treatments/deleteTreatment/<%= treatment._id%>" class="btn btn-danger delete">
+                                                            <i class="fas fa-trash-alt fa-4x"></i>
+                                                            
+                                                        </a>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     
