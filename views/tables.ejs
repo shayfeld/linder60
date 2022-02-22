@@ -133,7 +133,10 @@
                                                     <%= user.fullName %>
                                                     <hr>
                                                     <%user.hobbies.forEach((hobbie, index) => {%>
-                                                    <img class="img-fluid img-thumbnail p-3" src="/static/img/<%= hobbie %>.jpeg">
+                                                        <div class="form-group">
+                                                            <h5 class="m-0 font-weight-bold text-primary"><%= hobbie %></h5>
+                                                            <img class="img-fluid img-thumbnail p-3" src="/static/img/<%= hobbie %>.jpeg">
+                                                        </div>
                                                     <%})%>
                                                 </td>
                                                 <td>
