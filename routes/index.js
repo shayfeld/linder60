@@ -12,11 +12,11 @@ router.get('/',(req, res)=>{
 
 // Dashbord page
 router.get('/dashboard', ensureAuthenticated, (req, res)=>{
-    Treatment.find({}, (err, treatments) =>{
+    User.find({}, (err, users) =>{
         res.render('tables',{
-            treatmentList: treatments
+            usersList: users
         })
-    })
+    });
     
 });
 
@@ -25,6 +25,7 @@ router.get('/hobbies', ensureAuthenticated, (req, res)=>{
     //const {userId} = req.params;
     Treatment.find({}, (err, treatments) =>{
         res.render('hobbies',{
+            userId:req.user.userId,
             treatmentList: treatments
         })
     })

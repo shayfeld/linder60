@@ -10,153 +10,74 @@ const User = require('../models/User');
 const Treatment = require('../models/Treatment');
 
 
-// Add Treatment Page
-router.get('/addTreatment', ensureAuthenticated, (req, res)=>{
-    res.render('addTreatment')
-});
-
-// Edit Treatment Page
-router.get('/editTreatment/:id', ensureAuthenticated, (req, res)=>{
-    const userId = req.params.id;
-    const put = "PUT";
-    Treatment.findById(userId)
-    .then((user)=>{
-        res.render('editTreatment',{
-            userId: userId,
-            treatmentNumber: user.treatmentNumber,
-            workerEmail: user.workerEmail,
-            treatmentInformation: user.treatmentInformation,
-            carNumber: user.carNumber,
-            inputDate: user.inputDate,
-            tempTreatmentNumber:user.treatmentNumber,
-            put: put
-        });
-    })
-    .catch((err)=>{
-        console.log(err);
-    });
-});
-
 // Add Treatment Handle
-router.post('/addTreatment', ensureAuthenticated, (req, res)=>{
-    const {hobbies} = req.body;
-    let errors = [];
+router.get('/addTreatment/:id/:userid', ensureAuthenticated, (req, res)=>{
+    const userId = req.params.userid;
+    const id = req.params.id;
 
-    //Check required fields
-    if(!hobbie){
-        errors.push({msg:'Please fill in all fields'});
-    }
-    
-    if(errors.length > 0){
-        res.render('addTreatment',{
-                    errors,
-                    hobbie,
-                });
-    }else{
-        Treatment.findOne({hobbie: hobbie})
-        .then((hobbie)=>{
-            if(hobbie){
-                errors.push({msg:'The hobbie exist'});
-                res.render('addTreatment',{
-                    errors,
-                    hobbie,
-                });
-            }
-            else{
-                const treatment = new Treatment({
-                    hobbie:hobbie,
-                });
-            
-                treatment.save()
-                .then(() => {
-                    // Back to dashboard
-                    res.redirect('/dashboard');
+    //find hobbie
+    Treatment.findById(id)
+        .then((hobbiee)=>{
+            if(hobbiee){
+                User.findOne({userId:userId})
+                .then((user)=>{
+                    if(user.hobbies.indexOf(hobbiee.hobbie) == -1){
+                        user.hobbies.push(hobbiee.hobbie);
+                        User.findByIdAndUpdate(user._id, {hobbies: user.hobbies}, {useFindAndModify: false})
+                        .then(() =>{
+                            Treatment.find({}, (err, treatments) =>{
+                                res.render('hobbies',{
+                                    userId:userId,
+                                    treatmentList: treatments
+                                })
+                            })
+                        })
+                        .catch((err)=>{
+                            console.log(err);
+                        });
+                    }
+                        
                 })
                 .catch(err => console.log(err));
             }
         })
-        .catch(err => console.log(err));  
-    }   
-
-});
-
-
-
-// Edit Treatment Handle
-router.post('/editTreatment/:id', ensureAuthenticated, (req, res)=>{
-    const userId = req.params.id;
-    const {treatmentNumber, carNumber, treatmentInformation, workerEmail, put, tempTreatmentNumber} = req.body;
-    let errors = [];
-
-    //Check required fields
-    if(!treatmentNumber || !carNumber || !treatmentInformation || !workerEmail){
-        errors.push({msg:'Please fill in all fields'});
-    }
-    
-    if(errors.length > 0){
-        res.render('editTreatment',{
-                    errors,
-                    treatmentNumber,
-                    carNumber,
-                    treatmentInformation,
-                    workerEmail,
-                    userId,
-                    tempTreatmentNumber,
-                    put
-                });
-    }else{
-        if(tempTreatmentNumber !== treatmentNumber){
-            Treatment.findOne({treatmentNumber: treatmentNumber})
-            .then((treatment)=>{
-                if(treatment){
-                    errors.push({msg:'The treatment number exist'});
-                    res.render('editTreatment',{
-                        errors,
-                        treatmentNumber,
-                        carNumber,
-                        treatmentInformation,
-                        workerEmail,
-                        userId,
-                        tempTreatmentNumber,
-                        put
-                    });
-                }else{
-                    Treatment.findByIdAndUpdate(userId, req.body, {useFindAndModify: false})
-                    .then(() =>{
-                        res.redirect('/dashboard');
-                    })
-                    .catch((err)=>{
-                        console.log(err);
-                    });
-
-                }
-            });
-
-        }else{
-            Treatment.findByIdAndUpdate(userId, req.body, {useFindAndModify: false})
-            .then(() =>{
-                res.redirect('/dashboard');
-            })
-            .catch((err)=>{
-                console.log(err);
-            });
-        }
-
-    }
+        .catch(err => console.log(err));
 
 });
 
 
 // Delete Treatment Handle
-router.get('/deleteTreatment/:id', ensureAuthenticated, (req, res)=>{
+router.get('/deleteTreatment/:id/:userid', ensureAuthenticated, (req, res)=>{
+    const userId = req.params.userid;
     const id = req.params.id;
-    Treatment.findByIdAndDelete(id)
-    .then(()=>{
-        res.redirect('/dashboard');
-    })
-    .catch((err)=>{
-        console.log(err);
-    });
+
+    //find hobbie
+    Treatment.findById(id)
+        .then((hobbiee)=>{
+            if(hobbiee){
+                User.findOne({userId:userId})
+                .then((user)=>{
+                    if(user.hobbies.indexOf(hobbiee.hobbie)){
+                        user.hobbies.splice(user.hobbies.indexOf(hobbiee.hobbie),1);
+                        User.findByIdAndUpdate(user._id, {hobbies: user.hobbies}, {useFindAndModify: false})
+                        .then(() =>{
+                            Treatment.find({}, (err, treatments) =>{
+                                res.render('hobbies',{
+                                    userId:userId,
+                                    treatmentList: treatments
+                                })
+                            })
+                        })
+                        .catch((err)=>{
+                            console.log(err);
+                        });
+                    }
+                        
+                })
+                .catch(err => console.log(err));
+            }
+        })
+        .catch(err => console.log(err));
 });
 
 

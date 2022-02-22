@@ -16,7 +16,15 @@ const UserSchema = new mongoose.Schema({
     phone:{
         type: Date,
         default: Date.now
-    }
+    },
+    hobbies:{
+        type: Array,
+        required: true
+    },
+    location:{
+        type: String,
+        required: true
+    },
 });
 
 const User = mongoose.model('User', UserSchema);

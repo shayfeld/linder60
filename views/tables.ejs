@@ -110,24 +110,16 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h2 class="m-0 font-weight-bold text-primary text-right" >משתמשים באיזור שלי</h2>
                             
                         <div class="card-body">
-                            <a href="/treatments/addTreatment" class="btn btn-info btn-rounded btn-sm">
-                                <i class="fas fa-plus-square"></i> Add new treatment
-                            </a>
                                 <br></br>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" dir="rtl">
                                     <thead>
                                         <tr>
                                             <th>שם ותחביבים</th>
@@ -135,13 +127,38 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%treatmentList.forEach((treatment, index) => {%>
+                                        <%usersList.forEach((user, index) => {%>
                                             <tr>
                                                 <td>
-                                                    <%= treatment.treatmentNumber %>
+                                                    <%= user.fullName %>
+                                                    <hr>
+                                                    <%user.hobbies.forEach((hobbie, index) => {%>
+                                                    <img class="img-fluid w-25 p-3" src="/static/img/<%= hobbie %>.jpeg">
+                                                    <%})%>
                                                 </td>
                                                 <td>
-                                                    <%= treatment.treatmentInformation %>
+                                                    <%= user.location %> ק"מ
+                                                    <hr>
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-6">
+                                                            <a href="" class="btn btn-success update">
+                                                                התקשר
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <a href="" class="btn btn-danger delete"> 
+                                                                שלח מסר
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    
+                                                
+                                                </div>
+                                                <hr>
+                                                <div class="form-group">
+                                                    
                                                 </td>
                                             </tr>
                                         <%})%>

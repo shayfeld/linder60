@@ -131,12 +131,12 @@
                                                 <td>
                                                     
                                                     <div class="form-group">
-                                                        <a href="/treatments/editTreatment/<%= treatment._id%>" class="btn btn-success update">
+                                                        <a href="/treatments/addTreatment/<%= treatment._id%>/<%=userId%>" class="btn btn-success update">
                                                             הוסף תחביב זה
                                                         </a>
                                                     </div>
                                                     <div class="form-group">
-                                                        <a href="/treatments/deleteTreatment/<%= treatment._id%>" class="btn btn-danger delete"> 
+                                                        <a href="/treatments/deleteTreatment/<%= treatment._id%>/<%=userId%>" class="btn btn-danger delete"> 
                                                             מחק תחביב זה
                                                         </a>
                                                     </div>

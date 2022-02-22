@@ -56,6 +56,7 @@ router.get('/register',(req, res)=>{
 router.post('/register',async(req, res, next)=>{
     const {userId, fullName, phone} = req.body;
     const password = userId;
+    const location = "0";
 
     let errors = [];
 
@@ -84,12 +85,14 @@ router.post('/register',async(req, res, next)=>{
                     });
 
             }else{
-
+                const hobbies = [];
                 const newUser = new User({
                     userId,
                     password,
                     fullName,
-                    phone, 
+                    phone,
+                    hobbies,
+                    location, 
                 });
 
                 // Hash Password
